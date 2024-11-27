@@ -11,15 +11,24 @@ html{
     padding: 0;
 }
 
-body{
+body {
     align-items: center;
     background: linear-gradient(320deg, #ee868f, #f8d9d4, #d3676e);
-    display: flex;
+    display: grid;
     font-family: 'Dosis', sans-serif;
     font-display: swap;
     height: inherit;
     justify-content: center;
+    margin: 0;
+    padding: 0;
 }
+
+.parent {
+    display: grid;
+    gap: 10px; /* Adjust spacing between elements */
+    justify-items: center; /* Center-align the items */
+}
+
 
 .wrapper{
     -webkit-backdrop-filter: blur(5.5px);
@@ -36,6 +45,8 @@ body{
     padding: 20px 35px;
 }
 
+
+
 .screen{
     -webkit-backdrop-filter: blur(5.5px);
     backdrop-filter: blur(5.5px);
@@ -46,6 +57,20 @@ body{
     color: #232323;
     font-size: 35px;
     padding: 20px;
+    text-align: right;
+    width: 326px;
+}
+
+.screen1 {
+    -webkit-backdrop-filter: blur(5.5px);
+    backdrop-filter: blur(5.5px);
+    background: rgba(80, 71, 58, 0.877);
+    border: 1px solid rgba(255, 255, 255, 0.01);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(35, 35, 35, 0.1);
+    color: #c0a3a3;
+    font-size: 30px;
+    padding: 10px; /* Adjust padding */
     text-align: right;
     width: 326px;
 }

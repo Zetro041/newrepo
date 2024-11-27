@@ -3,8 +3,10 @@ let buffer = "0"; // Current number being entered
 let equationBuffer = ""; // Full equation
 let previousOperator = null;
 let resetBufferOnNextNumber = false; // Flag to reset buffer after operator
+let history = []; // Array to store the last 5 calculations
 
-const screen = document.querySelector(".screen");
+const mainScreen = document.querySelector(".screen"); // For showing current input or result
+const equationScreen = document.querySelector(".screen1"); // For showing the history
 
 function buttonClick(value) {
     if (isNaN(value)) {
@@ -12,14 +14,13 @@ function buttonClick(value) {
     } else {
         handleNumber(value);
     }
-    screen.innerText = equationBuffer + buffer; // Display the full equation including the current buffer
+    updateScreens();
 }
 
 function handleSymbol(symbol) {
     switch (symbol) {
         case "C":
             buffer = "0";
-            equationBuffer = "";
             runningTotal = 0;
             previousOperator = null;
             resetBufferOnNextNumber = false;
@@ -30,7 +31,9 @@ function handleSymbol(symbol) {
             }
             flushOperation(parseInt(buffer));
             equationBuffer += ` ${buffer} = ${runningTotal}`;
+            addToHistory(equationBuffer); // Add completed equation to history
             buffer = runningTotal.toString();
+            equationBuffer = ""; // Clear the equation buffer for a new calculation
             previousOperator = null;
             resetBufferOnNextNumber = true;
             runningTotal = 0;
@@ -67,7 +70,7 @@ function handleMath(symbol) {
     previousOperator = symbol;
     equationBuffer += ` ${buffer} ${symbol}`; // Append the operator and operand to the equation
     resetBufferOnNextNumber = true; // Prepare for the next number input
-    buffer = ""; // Clear buffer for the next operand
+    buffer = "0"; // Clear buffer for the next operand
 }
 
 function flushOperation(intBuffer) {
@@ -91,6 +94,18 @@ function handleNumber(numberString) {
     } else {
         buffer += numberString; // Append digit to the current number
     }
+}
+
+function addToHistory(equation) {
+    history.push(equation); // Add the new equation to history
+    if (history.length > 5) {
+        history.shift(); // Remove the oldest equation if history exceeds 5
+    }
+}
+
+function updateScreens() {
+    mainScreen.innerText = buffer; // Show current input or result
+    equationScreen.innerText = history.join("\n"); // Show history of equations, joined with line breaks
 }
 
 function init() {
